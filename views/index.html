@@ -9,7 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -18,15 +18,45 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4 text-center">
+          <br/>
+          <br/>
           <h1>
             Timestamp Microservice
           </h1>
           <p>
-            By Alex Cannon
+            <a href="https://www.freecodecamp.org">Free Code Camp's</a> <b>APIs and Microservices Certificate</b> project 1 of 5:
+            <br/>
+            Convert time to and from unix or "natural" dates. 
+            <br/>
+            By <a href="https://github.com/Alex-Cannon">Alex Cannon</a>
           </p>
           <p>
-            Convert your date to unix time or vice versa. Use the url <b>https://.../December 5, 1999</b>
+            See the <a href="https://github.com/Alex-Cannon/Timestamp-Microservice">Source Code</a> on GitHub.
           </p>
+          <br/>
+          <h2>
+            Example Usage:
+          </h2>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <a href="/api/September 12, 2020">GET /api/September 12, 2020</a>
+              <br/>
+              <br/>
+              <h5>
+                Expected Response:
+              </h5>
+              <i>{"unix":1599868800000,"natural":"September 12, 2020"}</i>
+            </li>
+            <li class="list-group-item">
+              <a href="/api/1599868800000">GET /api/1599868800000</a>
+              <br/>
+              <br/>
+              <h5>
+                Expected Response:
+              </h5>
+              <i>{"unix":1599868800000,"natural":"September 12, 2020"}</i>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
