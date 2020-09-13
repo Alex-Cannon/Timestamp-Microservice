@@ -1,102 +1,45 @@
-// init project
-var express = require('express');
-var path = require('path');
-var app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
 
-//Use our public files
+const isUnix = (dateString) => {
+  return /^\d+$/.test(dateString);
+}
+
+// Give express access to static files in ./public
 app.use(express.static('public'));
 
+// When "/" is requested, serve ./views/index.html
 app.get("/", function(req, res){
   res.sendFile(__dirname + '/views/index.html');
 });
 
-//Returns true if the input is a number
-var isNumeric = function(input) {
-  return !isNaN(parseFloat(input)) && isFinite(input);
-}
-
-//Returns true if the given month is a month
-var validMonth = function(month) {
-  switch(month.toLower())
-      {
-    case "january":
-      break;
-    case "february":
-      break;
-    case "march":
-      break;
-    case "april":
-      break;
-    case "may":
-      break;
-    case "june":
-      break;
-    case "july":
-      break;
-    case "august":
-      break;
-    case "september":
-      break;
-    case "october":
-      break;
-    case "november":
-      break;
-    case "december":
-      break;
-  }
-}
-
-//Returns true if the format is unix, false if natural, and undefined if neither
-var isUnixTimestamp = function(time)
-{
-  if(isNumeric(time))
-  {
-    return true;
-  }
-  //Check date?
-  return false;
-}
-
-//Given a date or unix time, returns an object with both
-var convertTime = function(time)
-{
-  var isUnix = isUnixTimestamp(time);
-  if(isUnix === undefined)
-    {
-      return {unix: null, natural: null};
-    }
-  if(isUnix)
-    {
-      var date = new Date(parseInt(time));
-      console.log(date);
-      return {unix: time, natural: trimDate(date.toDateString())};
-    }
-  return  {unix: Date.parse(time), natural: time};
-}
-
-//Trims the day off the date. ex: Tuesday January 5, 1999 --> January 5, 1999
-var trimDate = function(dateStr)
-{
-  var i = 0;
-  while(i < dateStr.length && dateStr[i] !== " ")
-    {
-      i++;
-    }
-  i++;
-  return dateStr.substring(i);
-}
-
-//Handle a specific request
-app.get("/api/:data", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
-  //valid url request?
-  if(request.params && Object.keys(request.params).length > 0)
-    {
-      response.write(JSON.stringify(convertTime(request.params.data)));
-    }
-  response.end();
+// Return the timestamp NOW if there is no :datestring parameter
+app.get("/api/timestamp", (request, response) => {
+  const date = new Date();
+  
+  response.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
+// When "/api/timestamp/:dateString" 
+app.get("/api/timestamp/:dateString", (request, response) => {
+  const date = isUnix(request.params.dateString) ? new Date(parseInt(request.params.dateString)) : new Date(request.params.dateString);
+  
+  // Verify date is valid
+  if (date.getTime()) {
+    response.json({
+      unix: date.getTime(),
+      utc: date.toUTCString()
+    }); 
+  }
+  
+  response.status(400).send("Bad Request. Please use a valid date string.");
+});
+
+// Open our app to requests
+app.listen(process.env.PORT, () => {
+  console.log(`App listening on port ${process.env.PORT}...`);
 });

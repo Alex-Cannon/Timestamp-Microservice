@@ -14,21 +14,19 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-4 text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-5 text-center">
           <br/>
           <br/>
           <h1>
             Timestamp Microservice
           </h1>
           <p>
-            <a href="https://www.freecodecamp.org">Free Code Camp's</a> <b>APIs and Microservices Certificate</b> project 1 of 5:
+            <a href="https://www.freecodecamp.org/learn/apis-and-microservices/apis-and-microservices-projects/timestamp-microservice">Free Code Camp's</a> <b>APIs and Microservices Certificate</b> project 1 of 5:
             <br/>
             Convert time to and from unix or "natural" dates. 
             <br/>
-            By <a href="https://github.com/Alex-Cannon">Alex Cannon</a>
+            By <a href="https://alex-cannon.github.io/">Alex Cannon</a>
           </p>
           <p>
             See the <a href="https://github.com/Alex-Cannon/Timestamp-Microservice">Source Code</a> on GitHub.
@@ -39,33 +37,44 @@
           </h2>
           <ul class="list-group">
             <li class="list-group-item">
-              <a href="/api/September 12, 2020">GET /api/September 12, 2020</a>
+              <a href="/api/timestamp/">GET /api/timestamp</a>
               <br/>
               <br/>
               <h5>
                 Expected Response:
               </h5>
-              <i>{"unix":1599868800000,"natural":"September 12, 2020"}</i>
+              <i>{"unix": "NOW_IN_UNIX","natural": "NOW_IN_UTC"}</i>
             </li>
             <li class="list-group-item">
-              <a href="/api/1599868800000">GET /api/1599868800000</a>
+              <a href="/api/timestamp/2020-09-12">GET /api/timestamp/2020-09-12</a>
               <br/>
               <br/>
               <h5>
                 Expected Response:
               </h5>
-              <i>{"unix":1599868800000,"natural":"September 12, 2020"}</i>
+              <i>{ "unix": 1599868800000, "natural": "Wed Dec 09 2020 00:00:00 GMT+0000 (UTC)" }</i>
+            </li>
+            <li class="list-group-item">
+              <a href="/api/timestamp/1599868800000">GET /api/timestamp/1599868800000</a>
+              <br/>
+              <br/>
+              <h5>
+                Expected Response:
+              </h5>
+              <i>{ "unix": 1599868800000, "natural": "Wed Dec 09 2020 00:00:00 GMT+0000 (UTC)" }</i>
+            </li>
+            <li class="list-group-item">
+              <a href="/api/timestamp/INVALID_DATE_STRING">GET /api/timestamp/INVALID_DATE_STRING</a>
+              <br/>
+              <br/>
+              <h5>
+                Expected Response:
+              </h5>
+              <i>"Bad Request. Please use a valid date string."</i>
             </li>
           </ul>
         </div>
       </div>
     </div>
-    
-    <!-- Your web-app is https, so your scripts need to be too -->
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
-            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
-            crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
-
   </body>
 </html>
