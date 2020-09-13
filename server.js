@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+// Use a digit-only regex to verify if a dateString is unix
 const isUnix = (dateString) => {
   return /^\d+$/.test(dateString);
 }
@@ -26,9 +27,10 @@ app.get("/api/timestamp", (request, response) => {
 
 // When "/api/timestamp/:dateString" 
 app.get("/api/timestamp/:dateString", (request, response) => {
+  // If we have a unix dateString, we must convert it from a string to an integer for `Date` to process it.
   const date = isUnix(request.params.dateString) ? new Date(parseInt(request.params.dateString)) : new Date(request.params.dateString);
   
-  // Verify date is valid
+  // Verify `date.getTime()` is truthy and therefore valid.
   if (date.getTime()) {
     response.json({
       unix: date.getTime(),
@@ -36,6 +38,7 @@ app.get("/api/timestamp/:dateString", (request, response) => {
     }); 
   }
   
+  // Since `date.getTime()` was NOT truthy, it is invalid.
   response.status(400).send("Bad Request. Please use a valid date string.");
 });
 
