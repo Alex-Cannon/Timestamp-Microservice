@@ -25,7 +25,7 @@ app.get("/api/timestamp", (request, response) => {
   });
 });
 
-// When "/api/timestamp/:dateString" 
+// Respond to "/api/timestamp/:dateString"
 app.get("/api/timestamp/:dateString", (request, response) => {
   // If we have a unix dateString, we must convert it from a string to an integer for `Date` to process it.
   const date = isUnix(request.params.dateString) ? new Date(parseInt(request.params.dateString)) : new Date(request.params.dateString);
